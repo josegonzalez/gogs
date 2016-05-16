@@ -15,8 +15,11 @@ RUN ./docker/build.sh
 # Configure LibC Name Service
 COPY docker/nsswitch.conf /etc/nsswitch.conf
 
+# copy nginx config for dokku
+COPY nginx.conf.sigil /app/nginx.conf.sigil
+
 # Configure Docker Container
 VOLUME ["/data"]
-EXPOSE 22 3000
+EXPOSE 3000 22
 ENTRYPOINT ["docker/start.sh"]
 CMD ["/bin/s6-svscan", "/app/gogs/docker/s6/"]
